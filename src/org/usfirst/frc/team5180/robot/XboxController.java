@@ -1,12 +1,9 @@
 package org.usfirst.frc.team5180.robot;
 
-
-
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * XBox controller wrapper for a joystick.
- * @author Matthew.Lythgoe
  */
 public class XboxController extends Joystick {
     
@@ -86,6 +83,7 @@ public class XboxController extends Joystick {
      * @return the state of the A button.
      */
     public boolean getAButton() {
+    	System.out.println("A button pressed.");
         return getRawButton(A);
     }
 

@@ -15,8 +15,13 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class Robot extends IterativeRobot {
 	//Edit the numbers at the end to the amount of motors to turn on.
-	RobotDrive mainDrive = new RobotDrive(1, 2, 3, 4);
+	private RobotDrive mainDrive;
+	private XboxController controller;
 	
+	public Robot() {
+		this.controller = new XboxController(1);
+		this.mainDrive = new RobotDrive(1, 2, 3, 4);
+	}
 	
 	
     /**
@@ -39,6 +44,10 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         while (isOperatorControl() && isEnabled()) {
+        	 double moveValue = controller.getLeftStickY();
+        		        double rotateValue = controller.getLeftStickX();
+        		 
+        		        mainDrive.arcadeDrive(moveValue, rotateValue);
         }
     }
     

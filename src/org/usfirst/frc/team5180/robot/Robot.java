@@ -3,6 +3,7 @@ package org.usfirst.frc.team5180.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 
 
 
@@ -18,18 +19,13 @@ public class Robot extends IterativeRobot {
 	private RobotDrive mainDrive;
 	private XboxController controller;
 	
-	public Robot() {
-		this.controller = new XboxController(1);
-		this.mainDrive = new RobotDrive(1, 2, 3, 4);
-	}
-	
-	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-
+    	this.controller = new XboxController(0);
+		this.mainDrive = new RobotDrive(1, 2, 3, 4);
     }
 
     /**
@@ -45,9 +41,9 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         while (isOperatorControl() && isEnabled()) {
         	 double moveValue = controller.getLeftStickY();
-        		        double rotateValue = controller.getLeftStickX();
-        		 
-        		        mainDrive.arcadeDrive(moveValue, rotateValue);
+        	 double rotateValue = controller.getLeftStickX();
+        		 mainDrive.arcadeDrive(moveValue, rotateValue);
+        Timer.delay(0.01);
         }
     }
     

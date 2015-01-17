@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team5180.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -25,7 +24,8 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	this.controller = new XboxController(0);
-		this.mainDrive = new RobotDrive(1, 2, 3, 4);
+		this.mainDrive = new RobotDrive(0,1);
+		mainDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight ,true);
     }
 
     /**
@@ -40,8 +40,8 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         while (isOperatorControl() && isEnabled()) {
-        	 double moveValue = controller.getLeftStickY();
-        	 double rotateValue = controller.getLeftStickX();
+        	 double rotateValue = controller.getRightStickY();
+        	 double moveValue = controller.getRightStickX();
         		 mainDrive.arcadeDrive(moveValue, rotateValue);
         Timer.delay(0.01);
         }
@@ -55,4 +55,3 @@ public class Robot extends IterativeRobot {
     }
     
 }
-

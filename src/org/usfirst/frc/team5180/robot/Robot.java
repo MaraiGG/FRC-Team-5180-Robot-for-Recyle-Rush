@@ -1,9 +1,13 @@
+
 package org.usfirst.frc.team5180.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
-
+import edu.wpi.first.wpilibj.buttons.Button;
 
 
 /**
@@ -17,18 +21,21 @@ public class Robot extends IterativeRobot {
 	//Edit the numbers at the end to the amount of motors to turn on.
 	private RobotDrive mainDrive;
 	private XboxController controller;
-	
+	private Compressor mainCompressor;
+	private DoubleSolenoid mainSolenoid;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
+    	new DoubleSolenoid(1,2);
     	this.controller = new XboxController(0);
 		this.mainDrive = new RobotDrive(0,1);
 		mainDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight ,true);
     }
 
-    /**
+
+	/**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
@@ -37,13 +44,26 @@ public class Robot extends IterativeRobot {
 
     /**
      * This function is called periodically during operator control
+     * @return 
+     * @return 
      */
     public void teleopPeriodic() {
         while (isOperatorControl() && isEnabled()) {
-        	 double rotateValue = controller.getRightStickY();
-        	 double moveValue = controller.getRightStickX();
-        		 mainDrive.arcadeDrive(moveValue, rotateValue);
-        Timer.delay(0.01);
+        	 double rotateValue = controller.getRightX();
+        	 double moveValue = controller.getRightY();
+        	 	mainDrive.arcadeDrive(rotateValue, moveValue);
+        	 	
+        	 	if(controller.A.get()) {
+        	 		//mainSolenoid.set(Value.kForward);
+        	 		System.out.println("A Button Pressed.");
+        	 	}
+        	 	
+        	 	if(controller.B.get()) {
+        	 		//mainSolenoid.set(Value.kReverse);
+        	 	}
+        		
+        	 	   Timer.delay(0.01);
+
         }
     }
     
@@ -55,3 +75,4 @@ public class Robot extends IterativeRobot {
     }
     
 }
+

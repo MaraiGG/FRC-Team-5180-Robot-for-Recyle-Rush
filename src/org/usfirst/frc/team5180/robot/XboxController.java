@@ -1,177 +1,85 @@
 package org.usfirst.frc.team5180.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.*;
 
-/**
- * XBox controller wrapper for a joystick.
- */
-public class XboxController extends Joystick {
+
+public class XboxController {
     
-    public static final int A = 0;
-    public static final int B = 1;
-    public static final int X = 2;
-    public static final int Y = 3;
-    public static final int LEFT_BUMPER = 4;
-    public static final int RIGHT_BUMPER = 5;
-    public static final int BACK = 6;
-    public static final int START = 7;
-    public static final int LEFT_STICK = 8;
-    public static final int RIGHT_STICK = 9;
-    
-    public static final int LEFT_X = 1;
-    public static final int LEFT_Y = 2;
-    public static final int TRIGGERS = 3;
-    public static final int RIGHT_X = 4;
-    public static final int RIGHT_Y = 5;
-    public static final int D_PAD_X = 6;
-    public static final int D_PAD_Y = 7;
+    private Joystick m_pad;
     
     public XboxController(int port) {
-        super(port);
-    }
- 
-    /**
-     * Read the value of the right joystick's X axis.
-     * @return the value of the right joystick's X axis.
-     */
-    public double getRightStickX() {
-        return getRawAxis(RIGHT_X);
-    }
-
-    /**
-     * Read the value of the right joystick's Y axis.
-     * @return the value of the right joystick's Y axis.
-     */
-    public double getRightStickY() {
-        return getRawAxis(RIGHT_Y);
-    }
-
-    /**
-     * Read the value of the left joystick's X axis.
-     * @return the value of the left joystick's X axis.
-     */
-    public double getLeftStickX() {
-        return getRawAxis(LEFT_X);
-    }
-
-    /**
-     * Read the value of the left joystick's Y axis.
-     * @return the value of the left joystick's Y axis.
-     */
-    public double getLeftStickY() {
-        return getRawAxis(LEFT_Y);
+        m_pad = new Joystick(port);
     }
     
-    /**
-     * Read the value of the d-pad's X axis.
-     * @return the value of the d-pad's X axis.
-     */
-    public double getDPadX() {
-        return getRawAxis(D_PAD_X);
+    public double getLeftX() {
+        return m_pad.getRawAxis(LEFT_X_AXIS);
     }
     
-    /**
-     * Read the value of the d-pad's Y axis.
-     * @return the value of the d-pad's Y axis.
-     */
-    public double getDPadY() {
-        return getRawAxis(D_PAD_Y);
+    public double getLeftY() {
+        return m_pad.getRawAxis(LEFT_Y_AXIS);
     }
-
-    /**
-     * Read the state of the A button.
-     * @return the state of the A button.
-     */
-    public boolean getAButton() {
-    	System.out.println("A button pressed.");
-        return getRawButton(A);
+    
+    public double getRightX() {
+        return m_pad.getRawAxis(RIGHT_X_AXIS);
     }
-
-    /**
-     * Read the state of the B button.
-     * @return the state of the B button.
-     */
-    public boolean getBButton() {
-        return getRawButton(B);
+    
+    public double getRightY() {
+        return m_pad.getRawAxis(RIGHT_Y_AXIS);
     }
-
-    /**
-     * Read the state of the X button.
-     * @return the state of the X button.
-     */
-    public boolean getXButton() {
-        return getRawButton(X);
+    
+    public double getTriggers() {
+        return m_pad.getRawAxis(TRIGGERS);
     }
-
-    /**
-     * Read the state of the Y button.
-     * @return the state of the Y button.
-     */
-    public boolean getYButton() {
-        return getRawButton(Y);
+    
+    public double getDpadX() {
+        return m_pad.getRawAxis(DPAD_LR);
     }
-
-    /**
-     * Read the state of the back button.
-     * @return the state of the back button.
-     */
-    public boolean getBackButton() {
-        return getRawButton(BACK);
+             
+    public double applyDeadband(int axis) {
+        if(Math.abs(m_pad.getRawAxis(axis)) < .1) {
+            return 0;
+        } else {
+            return axis;
+        }
+    }          
+    
+    // Creates buttons
+    public Button X = new JoystickButton(m_pad, BUTTON_X);
+    public Button Y = new JoystickButton(m_pad, BUTTON_Y);
+    public Button A = new JoystickButton(m_pad, BUTTON_A);
+    public Button B = new JoystickButton(m_pad, BUTTON_B);
+    public Button lBumper = new JoystickButton(m_pad, BUMPER_L);
+    public Button rBumper = new JoystickButton(m_pad, BUMPER_R);
+    public Button start = new JoystickButton(m_pad, BUTTON_START);
+    public Button back = new JoystickButton(m_pad, BUTTON_BACK);
+    public Button lStick = new JoystickButton(m_pad, LEFT_STICK_PRESS);
+    public Button rStick = new JoystickButton(m_pad, RIGHT_STICK_PRESS);
+    
+    public boolean getButton(int btn) {
+        return m_pad.getRawButton(btn);
     }
-
-    /**
-     * Read the state of the start button.
-     * @return the state of the start button.
-     */
-    public boolean getStartButton() {
-        return getRawButton(START);
-    }
-
-    /**
-     * Read the state of the right bumper button.
-     * @return the state of the right bumper button.
-     */
-    public boolean getRightBumperButton() {
-        return getRawButton(RIGHT_BUMPER);
-    }
-
-    /**
-     * Read the state of the left bumper button.
-     * @return the state of the left bumper button.
-     */
-    public boolean getLeftBumperButton() {
-        return getRawButton(LEFT_BUMPER);
-    }
-
-    /**
-     * Read the state of the left stick button.
-     * @return the state of the left stick button.
-     */
-    public boolean getLeftStickButton() {
-        return getRawButton(LEFT_STICK);
-    }
-
-    /**
-     * Read the state of the right stick button.
-     * @return the state of the right stick button.
-     */
-    public boolean getRightStickButton() {
-        return getRawButton(RIGHT_STICK);
-    } 
-        
-    /**
-     * Read the state of the right trigger.
-     * @return the state of the right trigger.
-     */
-    public double getRightTrigger() {
-        return -Math.min(getRawAxis(TRIGGERS), 0);
-    }
-
-    /**
-     * Read the state of the left trigger.
-     * @return the state of the left trigger.
-     */
-    public double getLeftTrigger() {
-        return Math.max(getRawAxis(TRIGGERS), 0);
-    }
+    
+    // Axis indexes:
+    public static final int
+            LEFT_X_AXIS = 1,
+            LEFT_Y_AXIS = 2,
+            TRIGGERS = 3,
+            RIGHT_X_AXIS = 4,
+            RIGHT_Y_AXIS = 5,
+            DPAD_LR = 6;
+    
+    // Button mappings:
+    public static final int
+            BUTTON_A = 1,
+            BUTTON_B = 2,
+            BUTTON_X = 3,
+            BUTTON_Y = 4,
+            BUMPER_L = 5,
+            BUMPER_R = 6,
+            BUTTON_BACK = 7,
+            BUTTON_START = 8,
+            LEFT_STICK_PRESS = 9,
+            RIGHT_STICK_PRESS = 10;
+    
 }

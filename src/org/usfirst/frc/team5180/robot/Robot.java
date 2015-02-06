@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	new DoubleSolenoid(1,2);
+    	this.mainSolenoid = new DoubleSolenoid(1,2);
     	this.controller = new XboxController(0);
 		this.mainDrive = new RobotDrive(0,1);
 		mainDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight ,true);
@@ -48,24 +48,21 @@ public class Robot extends IterativeRobot {
      * @return 
      */
     public void teleopPeriodic() {
-        while (isOperatorControl() && isEnabled()) {
-        	 double rotateValue = controller.getRightX();
+    		 double rotateValue = controller.getRightX();
         	 double moveValue = controller.getRightY();
         	 	mainDrive.arcadeDrive(rotateValue, moveValue);
         	 	
         	 	if(controller.A.get()) {
-        	 		//mainSolenoid.set(Value.kForward);
-        	 		System.out.println("A Button Pressed.");
+        	 		mainSolenoid.set(Value.kForward);
         	 	}
         	 	
         	 	if(controller.B.get()) {
-        	 		//mainSolenoid.set(Value.kReverse);
+        	 		mainSolenoid.set(Value.kReverse);
         	 	}
         		
         	 	   Timer.delay(0.01);
 
         }
-    }
     
     /**
      * This function is called periodically during test mode

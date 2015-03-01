@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	this.mainSolenoid = new DoubleSolenoid(0,1);
+    	this.mainSolenoid = new DoubleSolenoid(2,3);
     	this.controller = new XboxController(0);
 		this.mainDrive = new RobotDrive(0,1);
 		this.lift = new Jaguar(2);
@@ -42,7 +42,11 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+    	/*if(timer.get() < 4){
+    			mainDrive.arcadeDrive(.7, 0);
+    	} else {
+    		mainDrive.arcadeDrive(0, 0);
+    	}*/
     }
 
     /**
@@ -51,9 +55,10 @@ public class Robot extends IterativeRobot {
      * @return 
      */
     public void teleopPeriodic() {
+    	
     			//Driving
-    		 double rotateValue = controller.getRightX();
-        	 double moveValue = controller.getRightY();
+    		 double rotateValue = controller.getLeftX();
+        	 double moveValue = controller.getLeftY();
         	 	mainDrive.arcadeDrive(rotateValue, moveValue);
         	 	//Pneumatics
         	 	if(this.controller.getButton(XboxController.BUTTON_A)) {

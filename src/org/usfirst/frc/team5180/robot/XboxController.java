@@ -28,8 +28,12 @@ public class XboxController {
         return m_pad.getRawAxis(RIGHT_Y_AXIS);
     }
     
-    public double getTriggers() {
-        return m_pad.getRawAxis(TRIGGERS);
+    public double getLeftTrigger() {
+        return m_pad.getRawAxis(L_TRIGGER);
+    }
+    
+    public double getRightTrigger() {
+        return m_pad.getRawAxis(R_TRIGGER);
     }
     
     public double getDpadX() {
@@ -62,9 +66,10 @@ public class XboxController {
     
     // Axis indexes:
     public static final int
-            LEFT_X_AXIS = 1,
-            LEFT_Y_AXIS = 2,
-            TRIGGERS = 3,
+            LEFT_X_AXIS = 0,
+            LEFT_Y_AXIS = 1,
+            L_TRIGGER = 2,
+            R_TRIGGER = 3,
             RIGHT_X_AXIS = 4,
             RIGHT_Y_AXIS = 5,
             DPAD_LR = 6;
